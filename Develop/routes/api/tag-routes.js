@@ -7,7 +7,11 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Product,
-        attributes: ['product_name', 'price', 'stock', 'category_id']
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      },
+      {
+        model: ProductTag,
+        attributes: ['id', 'product_id', 'tag_id']
       }
     ]
   })
@@ -16,7 +20,6 @@ router.get('/', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-  // be sure to include its associated Product data
 });
 
 router.get('/:id', (req, res) => {
@@ -28,7 +31,11 @@ router.get('/:id', (req, res) => {
     include: [
       {
         model: Product,
-        attributes: ['product_name', 'price', 'stock', 'category_id']
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      },
+      {
+        model: ProductTag,
+        attributes: ['id', 'product_id', 'tag_id']
       }
     ]
   })
@@ -43,7 +50,6 @@ router.get('/:id', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-  // be sure to include its associated Product data
 });
 
 router.post('/', (req, res) => {

@@ -7,11 +7,15 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id', 'category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name']
+        attributes: ['id', 'tag_name']
+      },
+      {
+        model: ProductTag,
+        attributes: ['id', 'product_id', 'tag_id']
       }
     ]
   })
@@ -20,7 +24,6 @@ router.get('/', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-  // be sure to include its associated Category and Tag data
 });
 
 router.get('/:id', (req, res) => {
@@ -32,11 +35,15 @@ router.get('/:id', (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id', 'category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name']
+        attributes: ['id', 'tag_name']
+      },
+      {
+        model: ProductTag,
+        attributes: ['id', 'product_id', 'tag_id']
       }
     ]
   })
@@ -51,7 +58,6 @@ router.get('/:id', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-  // be sure to include its associated Category and Tag data
 });
 
 router.post('/', (req, res) => {

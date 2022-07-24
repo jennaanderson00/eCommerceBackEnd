@@ -2,20 +2,34 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 router.get('/', (req, res) => {
-  Category.findAll()
+  Category.findAll({
+    attributes: ['id', 'category_name'],
+    include: [
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      }
+    ]
+  })
     .then(dbCategoryData => res.json(dbCategoryData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
-  // be sure to include its associated Products
 });
 
 router.get('/:id', (req, res) => {
   Category.findOne({
     where: {
       id: req.params.id
-    }
+    },
+    attributes: ['id', 'category_name'],
+    include: [
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      }
+    ]
   })
     .then(dbCategoryData => {
       if (!dbCategoryData) {
@@ -28,7 +42,6 @@ router.get('/:id', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-  // be sure to include its associated Products
 });
 
 router.post('/', (req, res) => {
